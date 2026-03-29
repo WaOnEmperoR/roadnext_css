@@ -52,7 +52,7 @@ RCFSNet introduces several key components:
 
 ---
 
-## 🧠 Network Definitions (`/network`)
+## 🧠 Network Definitions (`/networks`)
 
 This folder contains all model variants.  
 All models preserve **MSCE, FSFF, and CDAM**, with variations in backbone, IFW usage, and scale-sensitive module.
@@ -78,6 +78,91 @@ All models preserve **MSCE, FSFF, and CDAM**, with variations in backbone, IFW u
 ```python
 double_loss()  # inside /network
 ```
+
+## 📥 Dataset
+
+The experiments in this project use two publicly available road extraction datasets:
+
+---
+
+### 🔹 Massachusetts Roads Dataset
+- Source: https://www.kaggle.com/datasets/balraj98/massachusetts-roads-dataset  
+- Contains high-resolution aerial images with corresponding road annotations  
+
+---
+
+### 🔹 DeepGlobe Roads Dataset
+- Source: https://www.kaggle.com/datasets/balraj98/deepglobe-road-extraction-dataset  
+- Contains satellite imagery for road extraction  
+
+---
+
+### 🔹 Download Methods
+
+The datasets can be obtained using either:
+
+- **Manual download** from Kaggle  
+- **Python script** using Kaggle API  
+
+---
+
+### 🔹 Dataset Structure
+
+After downloading and extracting, organize the datasets as follows:
+
+#### Massachusetts
+
+```
+Massachusetts/
+├── images/
+├── masks/
+```
+
+#### DeepGlobe
+
+```
+DeepGlobe/
+├── images/
+├── masks/
+├── metadata.csv
+```
+
+> 📌 Ensure that image–mask pairs are correctly aligned.
+
+---
+
+### 🔹 DeepGlobe Data Splitting
+
+For the DeepGlobe dataset, the official validation and test sets do not provide annotations.  
+Therefore, following the procedure described in the RCFSNet paper:
+
+- **5500 images** are used for training  
+- **726 images** are used for testing  
+- All samples are selected from the original training set  
+
+---
+
+### 🔹 Splitting Procedure
+
+- Based on `metadata.csv`  
+- Use the `split` column with value = `'train'`  
+- Perform random sampling with:
+  - **Seed = 2024**  
+  - Using **pandas library**
+
+#### Example:
+
+```python
+import pandas as pd
+
+df = pd.read_csv('metadata.csv')
+train_df = df[df['split'] == 'train']
+
+train_sample = train_df.sample(n=5500, random_state=2024)
+test_sample = train_df.drop(train_sample.index).sample(n=726, random_state=2024)
+```
+
+> ⚠️ Ensure reproducibility by keeping the same random seed (`2024`).
 
 ## 🏋️ Training
 
