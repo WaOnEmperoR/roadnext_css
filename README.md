@@ -163,7 +163,7 @@ test_sample = train_df.drop(train_sample.index).sample(n=726, random_state=2024)
 ```
 
 > ⚠️ Ensure reproducibility by keeping the same random seed (`2024`).
-
+ 
 ## 🏋️ Training
 
 Each dataset directory (`/Massachusetts`, `/DeepGlobe`) contains a `Training/` folder with scripts for running experiments under different configurations.
@@ -345,9 +345,49 @@ Users may modify these configurations if needed for extended experiments.
 
 ## 📦 Pretrained Weights
 
-Pretrained model weights will be provided here:
+Pretrained model weights are provided for selected configurations of RoadNeXt-CSS.
 
-- [ ] ConvNeXt-Tiny variants  
-- [ ] ConvNeXt-Small variants  
+> ⚠️ Due to storage limitations of free hosting services, we are currently unable to share all 16 model variants.  
+> We apologize for this limitation and provide representative high-performing models instead.
 
-*(Links will be updated soon)*
+---
+
+### 🔹 Massachusetts Dataset
+
+**ConvNeXt-Tiny + IFW (pos_weight = 5.0) + Scale-Sensitive**  
+[![Tiny-Full](https://img.shields.io/badge/Tiny-Full_Model-2ecc71?style=for-the-badge)](https://www.mediafire.com/file/4mdn7d8es97lhoq/RCFSNet_Mas_CnTiny_ScaleSen_double_pos_05_100epoch_v6.th/file)
+
+**ConvNeXt-Small + Scale-Sensitive**  
+[![Small-ScaleSen](https://img.shields.io/badge/Small-ScaleSen-f39c12?style=for-the-badge)](https://www.mediafire.com/file/9nfiigbjdsdgyxg/RCFSNet_Mas_CnSmall_ScaleSen_v02_100epoch.th/file)
+
+**ConvNeXt-Small + IFW (pos_weight = 6.0) + Scale-Sensitive**  
+[![Small-Full](https://img.shields.io/badge/Small-Full_Model-8e44ad?style=for-the-badge)](https://www.mediafire.com/file/hmnnf38sjucne5z/RCFSNet_Mas_CnSmall_ScaleSen_double_pos_06_100epoch_v9.th/file)
+
+---
+
+### 🔹 DeepGlobe Dataset
+
+**ConvNeXt-Tiny + IFW (pos_weight = 2.5) + Scale-Sensitive**  
+[![Tiny-Full](https://img.shields.io/badge/Tiny-Full_Model-2ecc71?style=for-the-badge)](https://www.mediafire.com/file/39jg5nbl7xb623i/RCFSNet_DG_CnTiny_ScaleSen_double_pos_025_100epoch.th/file)
+
+**ConvNeXt-Small + Scale-Sensitive**  
+[![Small-ScaleSen](https://img.shields.io/badge/Small-ScaleSen-f39c12?style=for-the-badge)](https://www.mediafire.com/file/fa9s1dl9ef9irdx/RCFSNet_DG2_CnSmall_ScaleSen_50epoch.th/file)
+
+**ConvNeXt-Small + IFW (pos_weight = 3.0) + Scale-Sensitive**  
+[![Small-Full](https://img.shields.io/badge/Small-Full_Model-8e44ad?style=for-the-badge)](https://www.mediafire.com/file/u2wwgu0s5sck4xe/RCFSNet_DG2_CnSmall_ScaleSen_double_pos_030_50epoch.th/file)
+
+---
+
+### 🎨 Legend
+
+- 🟢 **Green (Tiny-Full)** → ConvNeXt-Tiny + IFW + Scale-Sensitive  
+- 🟠 **Orange (Small-ScaleSen)** → ConvNeXt-Small + Scale-Sensitive  
+- 🟣 **Purple (Small-Full)** → ConvNeXt-Small + IFW + Scale-Sensitive  
+
+---
+
+### 📌 Notes
+
+- These models correspond to the **best-performing configurations** reported in the Results section  
+- Ensure that the correct architecture (Tiny/Small, IFW, Scale-Sensitive) is used when loading each weight  
+- Place downloaded weights in the `weights/` directory before evaluation  
